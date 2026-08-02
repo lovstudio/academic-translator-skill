@@ -1,0 +1,4 @@
+interface:
+  display_name: "论文 PDF 超级翻译官"
+  short_description: "将英文论文 PDF 译为保留图表、公式、目录与页码对应的中文 PDF"
+  default_prompt: "使用 $lovstudio-academic-translator 将这篇英文论文 PDF 翻译成保留图片和原版式的中文 PDF。"
