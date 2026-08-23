@@ -1,5 +1,7 @@
 # lovstudio-academic-translator
 
+![Version](https://img.shields.io/badge/version-0.2.0-CC785C)
+
 ![版本](https://img.shields.io/badge/version-0.1.0-CC785C)
 
 把英文论文、arXiv 和技术 PDF 翻译为中文，同时尽量保留图表、公式、目录与页码对应关系。
