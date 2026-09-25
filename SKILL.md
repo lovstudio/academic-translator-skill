@@ -1,10 +1,12 @@
 ---
-name: lovstudio-academic-translator
+name: lov-academic-translator
 description: 将英文论文、arXiv、期刊/会议文章及技术 PDF 翻译为中文 PDF 或可发布的中文 Markdown。用户提出“翻译英文 PDF”“翻译论文”“论文超级翻译官”“保留图片、公式和原版式”“原文译文对照”“页数对应”或“PDF 图文排版不要乱”时使用。
 license: MIT
+depends_on:
+  - lov-branding-consistency
 metadata:
-  author: lovstudio
-  version: "0.2.0"
+  author: contributors
+  version: "0.1.2"
   tags:
     - academic
     - pdf
@@ -12,7 +14,7 @@ metadata:
     - paper
 ---
 
-# 论文 PDF 精译
+# 学术译者 · Academic Translator
 
 默认交付保版式中文 PDF：原图、图表、公式和页面对象优先留在原位，中文文本替换或覆盖到相邻版面。文本重排版只用于快速阅读，不得把它当作保版式译本。
 
@@ -76,12 +78,18 @@ python3 scripts/translate_paper_pdf.py "/path/to/paper.pdf" \
 - [scripts/translate_paper_pdf.py](scripts/translate_paper_pdf.py)：快速逐页重排版与 Agent JSON 交接。
 - [scripts/document_inventory.py](scripts/document_inventory.py)：Markdown 图文结构差异检查。
 
-## 通用反馈闭环
+## Runtime context
 
-用户在 Skill 驱动任务中提出修改意见时，继续当前产物前必须执行：
+运行前读取同目录 `skill.yaml`，由宿主的 `skill-runtime` 按“当前请求、项目上下文、个人配置、品牌 Profile、安全默认值”的顺序注入，只使用 manifest 声明的字段。
 
-1. 先判断意见是 `task-specific`（仅本次）还是 `reusable`（可跨任务复用）。
-2. `task-specific` 只修改当前任务，不改 Skill。
-3. `reusable` 先确定作用域：领域规则先更新对应 canonical Skill；适用于所有 Skill 的规则先更新共享规范。
-4. 完成规则更新、版本、lint 与分发核验后，再把修改应用到当前任务。
-5. `reusable` 修改会使此前的“确认”“继续”“发吧”失效；完成当前产物修改和回读后必须停下，等待用户下一步指示，不自动进入发布、提交或其他外部写入。
+- 缺少 `required: true` 字段时，按 `questions` 向用户提出一个聚焦问题；回答只用于本次运行，除非用户明确要求保存。
+- Profile 只用于公开品牌事实；个人配置只用于决策，不自动写入产物或源码。
+- 调试报错提供可复制的 `context_id`、字段路径和来源，不输出秘密、完整私人路径或原始内容。
+
+## Runtime context (shared)
+
+运行前读取本 Skill 包的 `skill.yaml`，由宿主提供 `skill-runtime/v1` 上下文。字段解析顺序为：当前请求、项目上下文、个人 Preferences、品牌 Profile、通用默认值。
+
+- 只使用 Manifest 声明的字段；Profile 保存公开品牌事实，Preferences 保存个人工作偏好。
+- `required: true` 字段缺失时，按 Manifest 的问题配置向用户提出一个聚焦问题；用户明确同意后再保存回答。
+- 报错提供可复制的 `context_id`、字段路径与来源，诊断内容避开秘密、完整私人路径和原始配置。

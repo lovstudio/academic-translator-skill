@@ -1,0 +1,22 @@
+schema: skill-manifest/v1
+id: lov-academic-translator
+version: 0.1.2
+runtime: skill-runtime/v1
+context:
+  profile:
+    fields: []
+  preferences:
+    namespace: academic_translator
+    fields:
+      - path: output_language
+        required: false
+        question: "论文译本默认输出哪种语言？"
+      - path: default_mode
+        required: false
+        question: "默认优先保留原版式，还是生成快速阅读稿？"
+      - path: user.language
+        required: false
+        question: "交付说明使用哪种语言？"
+  interaction:
+    ask_missing: true
+    max_questions: 1

@@ -34,7 +34,7 @@ except Exception as exc:  # pragma: no cover - dependency check
 
 
 PROMPT_VERSION = "2026-05-13-v1"
-OUTPUT_PREFIX = os.environ.get("LOVSTUDIO_ACADEMIC_TRANSLATOR_PREFIX", "论文中文译本")
+OUTPUT_PREFIX = os.environ.get("SKILL_TRANSLATOR_OUTPUT_PREFIX", "论文中文译本")
 CJK_FONT = "HandTranslatorUnicode"
 FALLBACK_CJK_FONT = "STSong-Light"
 LATIN_FONT = "Helvetica"
@@ -236,7 +236,7 @@ def write_translation_template(path: Path, input_pdf: Path, mode: str, total_pag
             )
 
     payload = {
-        "schema": "lovstudio-academic-translator.translations.v1",
+        "schema": "lov-academic-translator.translations.v1",
         "mode": mode,
         "source_pdf": str(input_pdf),
         "source_total_pages": total_pages,
