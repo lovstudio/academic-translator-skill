@@ -1,6 +1,6 @@
 # 学术译者 · Academic Translator
 
-![Version](https://img.shields.io/badge/version-0.1.2-CC785C)
+![Version](https://img.shields.io/badge/version-0.2.1-CC785C)
 
 ![版本](https://img.shields.io/badge/version-0.1.0-blue)
 
